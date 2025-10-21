@@ -3,20 +3,13 @@ const connectDB = require('./config/database');
 
 const PORT = process.env.PORT || 3000;
 
-(async () => {
-  try {
-    if (process.env.MONGO_URI) {
-      await connectDB();
-    } else {
-      console.warn('MONGO_URI not set — starting without DB connection (degraded mode)');
-    }
-
+connectDB()
+  .then(() => {
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
-  } catch (err) {
-    console.error('Failed to start server:', err);
-    // exit with non-zero code to indicate startup failure
+  })
+  .catch((err) => {
+    console.error('Failed to connect to DB:', err);
     process.exit(1);
-  }
-})();
+  });
