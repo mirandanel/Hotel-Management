@@ -41,8 +41,4 @@ app.use('/api/bookings', bookingRoutes);
 // Error handler (must be last)
 app.use(errorHandler);
 
-app.get('/', (req, res) => {
-    res.send(`Server is running`);
-});
-
 module.exports = app;
