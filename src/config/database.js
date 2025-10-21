@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+            // Add timeouts and connection options suitable for Vercel
+            serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds instead of 30
+            socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+            maxPoolSize: 10, // Maintain up to 10 socket connections
         });
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
