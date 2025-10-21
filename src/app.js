@@ -10,8 +10,7 @@ const roomRoutes = require('./routes/rooms');
 const guestRoutes = require('./routes/guests');
 const bookingRoutes = require('./routes/bookings');
 
-// Connect to database
-connectDB();
+// Note: DB connection is handled by src/server.js to avoid connecting during module import.
 
 const app = express();
 
@@ -44,9 +43,5 @@ app.use('/api/bookings', bookingRoutes);
 
 // Error handler (must be last)
 app.use(errorHandler);
-
-app.get('/', (req, res) => {
-    res.send(`Server is running`);
-});
 
 module.exports = app;
